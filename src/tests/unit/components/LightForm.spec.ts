@@ -1,34 +1,34 @@
-import LightForm from "@/components/LightForm.vue";
-import { mount } from "@vue/test-utils";
-import { describe, test, expect } from "vitest";
+// import LightPayload from "@/components/LightPayload.vue";
+// import { mount } from "@vue/test-utils";
+// import { describe, test, expect } from "vitest";
 
-describe('LightForm.vue', () => {
-  test('form emits the light and resets', async () => {
+// describe('LightPayload.vue', () => {
+//   test('form emits the light and resets', async () => {
 
-    const wrapper = mount(LightForm)
+//     const wrapper = mount(LightPayload)
 
-    const nameInput = wrapper.get('[data-test="input-name"]')
-    const descriptionInput = wrapper.get('[data-test="input-description"]')
+//     const nameInput = wrapper.get('[data-test="input-name"]')
+//     const descriptionInput = wrapper.get('[data-test="input-description"]')
 
-    await nameInput.setValue('test name')
-    await descriptionInput.setValue('test desc')
-    await wrapper.get('[data-test="form"]').trigger('submit')
+//     await nameInput.setValue('test name')
+//     await descriptionInput.setValue('test desc')
+//     await wrapper.get('[data-test="form"]').trigger('submit')
 
-    expect(wrapper.emitted()).toHaveProperty('onCreate')
+//     expect(wrapper.emitted()).toHaveProperty('onCreate')
 
-    const event = wrapper.emitted('onCreate')
+//     const event = wrapper.emitted('onCreate')
 
-    expect(event).toEqual([
-      [
-        {
-          "description": "test desc",
-          "id": 0,
-          "name": "test name",
-        },
-      ],
-    ])
+//     expect(event).toEqual([
+//       [
+//         {
+//           "description": "test desc",
+//           "id": 0,
+//           "name": "test name",
+//         },
+//       ],
+//     ])
 
-    expect((<HTMLInputElement>nameInput.element).value).toBe('')
-    expect((<HTMLInputElement>descriptionInput.element).value).toBe('')
-  })
-})
+//     expect((<HTMLInputElement>nameInput.element).value).toBe('')
+//     expect((<HTMLInputElement>descriptionInput.element).value).toBe('')
+//   })
+// })

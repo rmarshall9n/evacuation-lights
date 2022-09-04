@@ -1,17 +1,18 @@
 <script setup lang="ts">
-  import type { Light } from '@/types';
+  import { useLightsStore } from '@/store/lights';
   import ViewLightButton from '@/components/ViewLightButton.vue'
 
-  defineProps<{
-    lights: Light[]
-  }>()
+  const store = useLightsStore()
+
+  store.fetch()
+  const lights = store.active
 </script>
 
 <template>
   <ul>
     <li v-for="light in lights" :key="light.id" data-test="light">
       {{ light.name }}: {{ light.description }}
-      <ViewLightButton :light="light" />
+      <ViewLightButton :id="light.id" />
     </li>
   </ul>
 </template>

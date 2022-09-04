@@ -8,8 +8,8 @@ import ErrorWrapper from './components/ErrorWrapper.vue';
       <h1>Evacuation Lights</h1>
 
       <nav>
-        <RouterLink to="/lights">List Lights</RouterLink>
-        <RouterLink to="/lights/create">Create Light</RouterLink>
+        <RouterLink to="/">Dashboard</RouterLink> |
+        <RouterLink to="/lights">Lights</RouterLink>
       </nav>
   </header>
 

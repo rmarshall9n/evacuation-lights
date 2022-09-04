@@ -1,15 +1,26 @@
-import { getLight } from '@/api/lights'
+// import { getLight } from '@/api/lightsApi'
 import { createRouter, createWebHistory } from 'vue-router'
-import ListLights from '../views/ListLights.vue'
 import NotFound from '../views/NotFound.vue'
+import Dashboard from '../views/Dashboard.vue'
+import Audit from '../views/Audit.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/',
+      name: 'dashboard',
+      component: Dashboard
+    },
+    {
+      path: '/audits/:id([0-9]*)',
+      name: 'audit',
+      component: Audit
+    },
+    {
       path: '/lights',
       name: 'lights',
-      component: ListLights
+      component: () => import('../views/ListLights.vue'),
     },
     {
       path: '/lights/create',
@@ -21,17 +32,16 @@ const router = createRouter({
       name: 'lights-id',
       component: () => import('../views/ViewLight.vue'),
       beforeEnter(to) {
-        const light = getLight(Number(to.params.id))
+        // const light = getLight(Number(to.params.id))
 
-        if (light === null) {
-          return {
-            name: 'not-found',
-            params: { pathMatch: to.path.substring(1).split('/') },
-            query: to.query,
-            hash: to.hash,
-          }
-        }
-        to.meta = { light, ...to.meta }
+        // if (light === null) {
+        //   return {
+        //     name: 'not-found',
+        //     params: { pathMatch: to.path.substring(1).split('/') },
+        //     query: to.query,
+        //     hash: to.hash,
+        //   }
+        // }
       }
     },
     {

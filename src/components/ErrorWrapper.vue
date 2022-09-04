@@ -5,7 +5,6 @@ const hasError = ref(false)
 
 onErrorCaptured((error: unknown, instance: ComponentPublicInstance | null, info: string): boolean | void => {
   hasError.value = true
-  return false;
 })
 </script>
 

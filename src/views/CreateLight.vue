@@ -1,23 +1,16 @@
 <script setup lang="ts">
-  import type { Light } from '@/types';
-  import { storeLight, getNextLightId } from '../api/lights.js'
+  import router from '@/router';
   import LightForm from '../components/LightForm.vue'
 
-
-  function createLight(light: Light) {
-    light.id = getNextLightId()
-
-    storeLight(light)
+  function created()
+  {
+    router.push('/lights')
   }
 </script>
 
 <template>
   <h2>Add light</h2>
 
-  <LightForm @onCreate="createLight" />
-  <!--
-  Missing
-  Not working
-  Insufficient brightness -->
+  <LightForm @onCreated="created" />
 </template>
 

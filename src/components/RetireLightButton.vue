@@ -1,15 +1,17 @@
 <script setup lang="ts">
-  import { retireLight } from '@/api/lights'
-  import type { Light } from '@/types';
+  import { useLightsStore } from '@/store/lights';
+
+  const store = useLightsStore()
 
   const props = defineProps<{
-    light: Light
+    id: number
   }>()
 
   const emit = defineEmits(['onRetired'])
 
-  function retire() {
-    retireLight(props.light.id)
+  function retire(): void
+  {
+    store.retire(props.id)
     emit('onRetired')
   }
 </script>

@@ -17,21 +17,6 @@ describe('ViewLight.vue', () => {
     mockGetLight = vi.fn()
   })
 
-  test('not found is displayed if the light cannot be found', async () => {
-    mockGetLight.mockReturnValue(null)
-
-    router.push('/lights/123')
-    await router.isReady()
-
-    const wrapper = shallowMount(ViewLight, {
-      global: {
-        plugins: [router]
-      }
-    })
-
-    expect(wrapper.find('[data-test="not-found"]').exists()).toBe(true)
-  })
-
   test('components are displayed if a light is found', async () => {
     mockGetLight.mockReturnValue(makeLight())
 
