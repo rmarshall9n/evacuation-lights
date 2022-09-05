@@ -1,36 +1,26 @@
 <script setup lang="ts">
-import { useAuditsStore } from '@/store/audits';
-import { useRoute } from 'vue-router';
+  import { useRoute, useRouter } from 'vue-router';
+  import { useAuditsStore } from '@/store/audits';
+  import AuditDetails from '@/components/AuditDetails.vue';
+  import CompleteAuditButton from '@/components/CompleteAuditButton.vue';
 
-const store = useAuditsStore()
-const route = useRoute()
+  const store = useAuditsStore()
+  const route = useRoute()
+  const router = useRouter()
 
-const audit = store.getAudit(Number(route.params.id))
-console.log(audit)
+  const id = Number(route.params.id)
+  store.fetchOne(id)
+  const audit = store.get(id)
+
+  function completed(): void {
+    router.push('/')
+  }
 </script>
 
 <template>
   <h2>Audit</h2>
 
-  <p>Created at: {{ audit.created_at }}</p>
-  <p>Completed: {{ audit.completed_at !== null ? 'Yes' : 'No'}}</p>
+  <AuditDetails v-if="audit" :audit="audit" />
 
-  <h3>Checklist</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Light name</th>
-        <th>Completed</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="light in audit.lights" :key="light.id">
-        <td>{{ light.name }}</td>
-        <td><input type="checkbox" /></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <button>Complete audit</button>
-
+  <CompleteAuditButton v-if="audit && audit.completed_at === null" :id="audit.id" @onCompleted="completed" />
 </template>

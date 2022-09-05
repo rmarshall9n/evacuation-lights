@@ -5,11 +5,14 @@
   const store = useAuditsStore()
   const router = useRouter()
 
-  const daysSinceLastAudit = store.getDaysSinceLastAudit()
+  const daysSinceLastAudit = store.getDaysSinceLastAudit
+
+  store.fetch()
+  const audits = store.all()
 
   function startAudit()
   {
-    const audit = store.createAudit()
+    const audit = store.create()
     router.push('/audits/' + audit.id)
   }
 </script>
@@ -33,7 +36,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="audit in store.audits" :key="audit.id">
+      <tr v-for="audit in audits" :key="audit.id">
         <td>{{ audit.created_at }}</td>
         <td>{{ audit.completed_at !== null ? 'Yes' : 'No'}}</td>
         <td><RouterLink :to="'audits/' + audit.id">View</RouterLink></td>

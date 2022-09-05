@@ -1,4 +1,4 @@
-import type { Light, LightPayload, LightsService } from '../types'
+import type { Light, LightPayload, LightsApi } from '../types'
 
 function retrieveLights(): Light[]
 {
@@ -69,7 +69,7 @@ function update(id: number, payload: Partial<Light>): Light|null
   return lights[index]
 }
 
-export const lightsApi: LightsService = {
+export const lightsApi: LightsApi = {
   all,
   get,
   store,

@@ -1,97 +1,100 @@
+import type { Audit } from '@/types'
+import { computed, ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { auditsApi } from '@/api/auditsApi'
 
 // Missing
 // Not working
 // Insufficient brightness
 
 export const useAuditsStore = defineStore('audits', () => {
-  const audits = ref([
-    {
-      id: 1,
-      created_at: '2022-05-31',
-      completed_at: '2022-05-31',
-      lights: []
-    },
-    {
-      id: 2,
-      created_at: '2022-06-31',
-      completed_at: '2022-06-31',
-      lights: []
-    },
-    {
-      id: 3,
-      created_at: '2022-07-31',
-      completed_at: '2022-07-31',
-    },
-    {
-      id: 4,
-      created_at: '2022-08-31',
-      completed_at: null,
-      lights: []
+  const audits: Ref<Audit[]> = ref([])
+
+  const getDaysSinceLastAudit = computed(() => {
+    type CompletedAudit = Audit & { completed_at: string }
+
+    const sorted = audits.value
+      .filter((audit): audit is CompletedAudit  => audit.completed_at !== null)
+      .sort((auditA, auditB) => (auditA.completed_at < auditB.completed_at) ? 1 : -1)
+
+    if (sorted.length === 0) {
+      return 0
     }
-  ])
 
-  function getAudit(id: number) {
-    const audit = audits.value.find((element) => element.id === id)
+    const timeDiff = Date.now() - Date.parse(sorted[0].completed_at)
 
-    return audit === undefined ? null : audit
+    return Math.floor(timeDiff / (1000 * 60 * 60 * 24))
+  })
+
+  function fetch(): void
+  {
+    audits.value = auditsApi.all()
   }
 
-  function createAudit() {
-    const audit = {
-      id: Math.floor(Math.random() * 100000),
-      created_at: (new Date()).toISOString(),
-      completed_at: null,
-      lights: [
-        {
-          id: 1,
-          name: 'light name 1',
-          description: 'light description 1',
-        },
-        {
-          id: 2,
-          name: 'light name 2',
-          description: 'light description 2',
-        }
-      ]
+  function fetchOne(id: number): void
+  {
+    const audit = auditsApi.get(id)
+
+    if (audit === null) {
+      return
     }
+
+    const index = audits.value.findIndex((element) => element.id === id)
+
+    // if the audit is not found in the state, add it. Otherwise update it.
+    if (index === -1) {
+      audits.value.push(audit)
+    } else {
+      audits.value[index] = audit
+    }
+  }
+
+  function get(id: number): Audit | null
+  {
+    return audits.value.find((audit) => audit.id === id) || null
+  }
+
+  function all(): Audit[]
+  {
+    return audits.value
+  }
+
+  function create(): Audit
+  {
+    const audit = auditsApi.store()
 
     audits.value.push(audit)
 
     return audit
   }
 
-  function completeAudit(id: number) {
-    audits.value.find((element) => element.id === id).completed_at = new Date()
-  }
+  function complete(id: number)
+  {
+    const index = audits.value.findIndex((audit) => audit.id === id)
 
-  function getLastCompletedAudit() {
-    const sorted = audits.value
-      .filter((audit) => audit.completed_at !== null)
-      .sort((a, b) => (a.completed_at < b.completed_at) ? 1 : -1)
-
-    return sorted.length > 0 ? sorted[0] :  null
-  }
-
-  function getDaysSinceLastAudit() {
-    const lastAudit = getLastCompletedAudit()
-
-    if (lastAudit === null  || lastAudit.completed_at === null) {
-      return 0
+    if (index === -1) {
+      return
     }
 
-    const timeDiff = Date.now() - Date.parse(lastAudit.completed_at)
+    const audit = auditsApi.update(id, {
+      completed_at: (new Date()).toISOString(),
+    })
 
-    return Math.floor(timeDiff / (1000 * 60 * 60 * 24))
+    if (audit === null) {
+      return
+    }
+
+    audits.value[index] = audit
   }
 
   return {
-    audits,
-    getAudit,
-    createAudit,
-    getLastCompletedAudit,
-    getDaysSinceLastAudit
+    fetch,
+    fetchOne,
+    get,
+    all,
+    create,
+    getDaysSinceLastAudit,
+    complete,
   }
 })
 
