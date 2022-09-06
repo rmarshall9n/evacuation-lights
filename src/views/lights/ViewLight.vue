@@ -18,9 +18,7 @@
 <template>
   <h1>View light</h1>
 
-  <template v-if="light !== null">
-    <LightDetails :light="light"/>
+  <LightDetails v-if="light" :light="light"/>
 
-    <RetireLightButton :id="light.id" @onRetired="lightRetired"/>
-  </template>
+  <RetireLightButton v-if="light" :id="light.id" @onRetired="lightRetired"/>
 </template>

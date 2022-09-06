@@ -15,7 +15,7 @@
 
   function submit()
   {
-    emit('onSubmitted', form)
+    emit('onSubmitted', {...form})
 
     form.name = ''
     form.description = ''

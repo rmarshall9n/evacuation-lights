@@ -10,7 +10,6 @@ export const useLightsStore = defineStore('lights', () => {
 
   const active = computed(() => lights.value.filter(light => light.retired === false))
 
-
   function fetch(): void
   {
     lights.value = lightsApi.all()
@@ -43,7 +42,6 @@ export const useLightsStore = defineStore('lights', () => {
   {
     return lights.value
   }
-
 
   function create(payload: LightPayload): void
   {
