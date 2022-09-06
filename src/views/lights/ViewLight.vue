@@ -7,10 +7,8 @@
 
   const route = useRoute()
   const router = useRouter()
-
   const store = useLightsStore()
 
-  store.fetchOne(Number(route.params.id))
   const light = store.get(Number(route.params.id))
 
   function lightRetired(light: Light) {
@@ -22,6 +20,7 @@
 
   <template v-if="light !== null">
     <LightDetails :light="light"/>
+
     <RetireLightButton :id="light.id" @onRetired="lightRetired"/>
   </template>
 </template>

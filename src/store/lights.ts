@@ -71,32 +71,22 @@ export const useLightsStore = defineStore('lights', () => {
     lights.value[index] = light
   }
 
-  // function update(id: number, payload: LightPayload): void
-  // {
-  //   const index = lights.value.findIndex((light) => light.id === id)
+  function update(id: number, payload: LightPayload): void
+  {
+    const light = lightsApi.update(id, payload)
 
-  //   if (index === -1) {
-  //     return
-  //   }
+    if (light === null) {
+      return
+    }
 
-  //   const updatedLight: Light = {
-  //     ...lights.value[index],
-  //     ...payload
-  //   }
+    const index = lights.value.findIndex((light) => light.id === id)
 
-  //   lights.value[index] = updatedLight
-  // }
+    if (index === -1) {
+      return
+    }
 
-  // function destroy(id: number): void
-  // {
-  //   const index = lights.value.findIndex((light) => light.id === id)
-
-  //   if (index === -1) {
-  //     return
-  //   }
-
-  //   lights.value.splice(index, 1);
-  // }
+    lights.value[index] = light
+  }
 
   return {
     active,
@@ -106,7 +96,6 @@ export const useLightsStore = defineStore('lights', () => {
     all,
     create,
     retire,
-    // update,
-    // destroy,
+    update,
   }
 })

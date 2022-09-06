@@ -1,30 +1,29 @@
 <script setup lang="ts">
-  import type { LightPayload } from '../types'
+  import type { Light, LightPayload } from '../types'
   import { reactive } from 'vue';
-  import { useLightsStore } from '@/store/lights';
 
-  const store = useLightsStore()
+  const props = defineProps<{
+    light?: Light
+  }>()
 
   const form: LightPayload = reactive({
-    name: '',
-    description: ''
+    name: props.light?.name ?? '',
+    description: props.light?.description ?? '',
   })
 
-  const emit = defineEmits(['onCreated'])
+  const emit = defineEmits(['onSubmitted'])
 
-  function create()
+  function submit()
   {
-    store.create(form)
+    emit('onSubmitted', form)
 
     form.name = ''
     form.description = ''
-
-    emit('onCreated')
   }
 </script>
 
 <template>
-  <form @submit.prevent="create" data-test="form">
+  <form @submit.prevent="submit" data-test="form">
     <div>
       <label>Name: </label><input type="text" name="name" v-model="form.name" data-test="input-name">
     </div>
@@ -33,6 +32,6 @@
       <label>Description: </label><input type="text" name="description" v-model="form.description" data-test="input-description">
     </div>
 
-    <button>Create</button>
+    <button>{{ light ? 'Edit' : 'Create' }}</button>
   </form>
 </template>

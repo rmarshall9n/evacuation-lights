@@ -1,5 +1,5 @@
-// import { getLight } from '@/api/lightsApi'
 import { createRouter, createWebHistory } from 'vue-router'
+import { guardLight } from './Guards'
 import NotFound from '../views/NotFound.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Audit from '../views/Audit.vue'
@@ -20,29 +20,24 @@ const router = createRouter({
     {
       path: '/lights',
       name: 'lights',
-      component: () => import('../views/ListLights.vue'),
+      component: () => import('../views/lights/ListLights.vue'),
     },
     {
       path: '/lights/create',
       name: 'lights-create',
-      component: () => import('../views/CreateLight.vue')
+      component: () => import('../views/lights/CreateLight.vue')
     },
     {
-      path: '/lights/:id([0-9]*)',
+      path: '/lights/:id(\\d+)/edit',
+      name: 'lights-edit',
+      component: () => import('../views/lights/EditLight.vue'),
+      beforeEnter: [guardLight]
+    },
+    {
+      path: '/lights/:id(\\d+)',
       name: 'lights-id',
-      component: () => import('../views/ViewLight.vue'),
-      beforeEnter(to) {
-        // const light = getLight(Number(to.params.id))
-
-        // if (light === null) {
-        //   return {
-        //     name: 'not-found',
-        //     params: { pathMatch: to.path.substring(1).split('/') },
-        //     query: to.query,
-        //     hash: to.hash,
-        //   }
-        // }
-      }
+      component: () => import('../views/lights/ViewLight.vue'),
+      beforeEnter: [guardLight]
     },
     {
       path: '/:pathMatch(.*)*',

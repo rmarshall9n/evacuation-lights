@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { useLightsStore } from '@/store/lights';
   import ViewLightButton from '@/components/ViewLightButton.vue'
+  import EditLightButton from '@/components/EditLightButton.vue'
 
   const store = useLightsStore()
 
@@ -12,7 +13,8 @@
   <ul>
     <li v-for="light in lights" :key="light.id" data-test="light">
       {{ light.name }}: {{ light.description }}
-      <ViewLightButton :id="light.id" />
+      <ViewLightButton :id="light.id" /> |
+      <EditLightButton :id="light.id" />
     </li>
   </ul>
 </template>
