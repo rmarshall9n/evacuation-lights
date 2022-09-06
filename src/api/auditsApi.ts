@@ -1,30 +1,14 @@
 import type { Audit, AuditsApi } from '../types'
-import { lightsApi } from './lightsApi'
-
-function retrieve(type: string): Audit[]
-{
-  let models = localStorage.getItem(type)
-
-  if (models === null) {
-    return []
-  }
-
-  return JSON.parse(models)
-}
-
-function persist(type: string, models: Audit[]): void
-{
-  localStorage.setItem(type, JSON.stringify(models))
-}
+import { persist, retrieve } from './LocalStorage';
 
 function all(): Audit[]
 {
-  return retrieve('audits')
+  return retrieve<Audit>('audits')
 }
 
 function get(id: number): Audit|null
 {
-  const audit = retrieve('audits').find((item: Audit) => item.id === id);
+  const audit = retrieve<Audit>('audits').find((item: Audit) => item.id === id);
 
   if (audit === undefined) {
     return null
@@ -39,21 +23,21 @@ function store(): Audit
     id: Math.floor(Math.random() * 100000),
     created_at: (new Date()).toISOString(),
     completed_at: null,
-    lights: lightsApi.all().filter((light) => light.retired === false)
+    records: [],
   }
 
-  let audits = retrieve('audits')
+  let audits = retrieve<Audit>('audits')
 
   audits.push(audit)
 
-  persist('audits', audits)
+  persist<Audit>('audits', audits)
 
   return audit
 }
 
 function update(id: number, payload: Partial<Audit>): Audit|null
 {
-  let audits = retrieve('audits')
+  let audits = retrieve<Audit>('audits')
 
   const index = audits.findIndex((audit) => audit.id === id)
 
@@ -66,7 +50,7 @@ function update(id: number, payload: Partial<Audit>): Audit|null
     ...payload
   }
 
-  persist('audits', audits)
+  persist<Audit>('audits', audits)
 
   return audits[index]
 }

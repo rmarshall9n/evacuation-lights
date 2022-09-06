@@ -21,7 +21,7 @@ export type Audit = {
   id: number;
   created_at: string;
   completed_at: string|null;
-  lights: Light[];
+  records: LightRecord[];
 };
 
 export interface AuditsApi {
@@ -31,3 +31,24 @@ export interface AuditsApi {
   update(id: number, payload: Partial<Audit>): Audit|null,
 }
 
+export type LightRecord = {
+  id: number;
+  auditId: number;
+  lightId: number;
+  created_at: string;
+  issue: boolean;
+  note: string;
+}
+
+export type LightRecordPayload = {
+  auditId: number;
+  lightId: number;
+  issue: boolean;
+  note: string;
+}
+
+export interface LightRecordsApi {
+  all(): LightRecord[],
+  store(payload: LightRecordPayload): LightRecord,
+  destroy(auditId: number, lightId: number): void,
+}

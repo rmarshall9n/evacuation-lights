@@ -1,29 +1,14 @@
 import type { Light, LightPayload, LightsApi } from '../types'
-
-function retrieveLights(): Light[]
-{
-  let lights = localStorage.getItem('lights')
-
-  if (lights === null) {
-    return []
-  }
-
-  return JSON.parse(lights)
-}
-
-function persistLights(lights: Light[]): void
-{
-  localStorage.setItem('lights', JSON.stringify(lights))
-}
+import { persist, retrieve } from './LocalStorage';
 
 function all(): Light[]
 {
-  return retrieveLights()
+  return retrieve<Light>('lights')
 }
 
 function get(id: number): Light|null
 {
-  const light = retrieveLights().find((item: Light) => item.id === id);
+  const light = retrieve<Light>('lights').find((item: Light) => item.id === id);
 
   if (light === undefined) {
     return null
@@ -40,18 +25,18 @@ function store(payload: LightPayload): Light
     ...payload
   }
 
-  let lights = retrieveLights()
+  let lights = retrieve<Light>('lights')
 
   lights.push(light)
 
-  persistLights(lights)
+  persist<Light>('lights', lights)
 
   return light
 }
 
 function update(id: number, payload: Partial<Light>): Light|null
 {
-  let lights = retrieveLights()
+  let lights = retrieve<Light>('lights')
 
   const index = lights.findIndex((light) => light.id === id)
 
@@ -64,7 +49,7 @@ function update(id: number, payload: Partial<Light>): Light|null
     ...payload
   }
 
-  persistLights(lights)
+  persist<Light>('lights', lights)
 
   return lights[index]
 }
