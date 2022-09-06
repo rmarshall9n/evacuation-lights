@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, test } from "vitest";
-import LightDetails from "@/components/LightDetails.vue";
+import LightDetails from "@/components/lights/LightDetails.vue";
 import { makeLight } from "@/tests/factory";
 
 describe('LightDetails.vue', () => {

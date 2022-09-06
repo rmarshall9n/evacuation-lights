@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { RouterLink } from 'vue-router'
-  import LightsList from '@/components/LightsList.vue'
+  import LightsList from '@/components/lights/LightsList.vue'
 </script>
 
 <template>

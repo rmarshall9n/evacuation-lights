@@ -2,8 +2,8 @@
   import type { Light } from '@/types';
   import { useRoute, useRouter } from 'vue-router'
   import { useLightsStore } from '@/store/lights';
-  import LightDetails from '@/components/LightDetails.vue'
-  import RetireLightButton from '@/components/RetireLightButton.vue'
+  import LightDetails from '@/components/lights/LightDetails.vue'
+  import RetireLightButton from '@/components/lights/RetireLightButton.vue'
 
   const route = useRoute()
   const router = useRouter()

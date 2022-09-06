@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { useLightsStore } from '@/store/lights';
-  import ViewLightButton from '@/components/ViewLightButton.vue'
-  import EditLightButton from '@/components/EditLightButton.vue'
+  import ViewLightButton from '@/components/lights/ViewLightButton.vue'
+  import EditLightButton from '@/components/lights/EditLightButton.vue'
 
   const store = useLightsStore()
 

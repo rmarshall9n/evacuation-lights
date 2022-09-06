@@ -2,7 +2,7 @@
   import type { LightPayload } from '@/types';
   import router from '@/router';
   import { useLightsStore } from '@/store/lights';
-  import LightForm from '@/components/LightForm.vue'
+  import LightForm from '@/components/lights/LightForm.vue'
 
   const store = useLightsStore()
 
