@@ -2,6 +2,8 @@ import type { Audit } from '@/types'
 import { computed, ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 import { auditsApi } from '@/api/auditsApi'
+import { useLightsStore } from './lights'
+import { useLightRecordsStore } from './lightRecords'
 
 // Missing
 // Not working
@@ -24,6 +26,31 @@ export const useAuditsStore = defineStore('audits', () => {
     const timeDiff = Date.now() - Date.parse(sorted[0].completed_at)
 
     return Math.floor(timeDiff / (1000 * 60 * 60 * 24))
+  })
+
+  const canCompleteAudit = computed(() => (id: number): boolean => {
+    const audit = audits.value.find((audit) => audit.id === id)
+
+    if (audit === undefined) {
+      return false
+    }
+
+    if (audit.completed_at !== null) {
+      return false
+    }
+
+    const lightsStore = useLightsStore()
+    const lightIds = lightsStore.active.map(light => light.id)
+
+    const recordStore = useLightRecordsStore()
+
+    for (const lightId of lightIds) {
+      if (recordStore.checked(id, lightId) === false) {
+        return false
+      }
+    }
+
+    return true
   })
 
   function fetch(): void
@@ -95,6 +122,7 @@ export const useAuditsStore = defineStore('audits', () => {
     create,
     getDaysSinceLastAudit,
     complete,
+    canCompleteAudit,
   }
 })
 

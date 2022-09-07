@@ -11,11 +11,16 @@
 
   function complete(): void
   {
+    if (!store.canCompleteAudit(props.id)) {
+      return
+    }
+
     store.complete(props.id)
+
     emit('onCompleted')
   }
 </script>
 
 <template>
-  <button @click="complete" data-test="button">Complete</button>
+  <button @click="complete" data-test="button" :disabled="!store.canCompleteAudit(props.id)">Complete</button>
 </template>
