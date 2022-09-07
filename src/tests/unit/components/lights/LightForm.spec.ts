@@ -2,6 +2,7 @@ import { mount } from "@vue/test-utils";
 import { describe, test, expect } from "vitest";
 import LightForm from "@/components/lights/LightForm.vue";
 import { makeLight } from "@/tests/factory";
+import { nextTick } from "vue";
 
 describe('LightForm.vue', () => {
 
@@ -41,12 +42,13 @@ describe('LightForm.vue', () => {
     await nameInput.setValue('test name')
     await descriptionInput.setValue('test desc')
     await wrapper.get('[data-test="form"]').trigger('submit')
+    await nextTick()
+    await nextTick()
 
-    expect(wrapper.emitted()).toHaveProperty('onSubmitted')
+    let emits = await wrapper.emitted()
 
-    const event = wrapper.emitted('onSubmitted')
-
-    expect(event).toEqual([
+    expect(emits).toHaveProperty('onSubmitted')
+    expect(wrapper.emitted('onSubmitted')).toEqual([
       [
         {
           "description": "test desc",
