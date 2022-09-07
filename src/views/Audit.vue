@@ -22,5 +22,5 @@
 
   <AuditDetails v-if="audit" :audit="audit" />
 
-  <CompleteAuditButton v-if="audit && audit.completed_at === null" :id="audit.id" @onCompleted="completed" />
+  <CompleteAuditButton v-if="audit && audit.completed_at === null" :id="audit.id" @on-completed="completed" />
 </template>

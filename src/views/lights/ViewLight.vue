@@ -20,5 +20,5 @@
 
   <LightDetails v-if="light" :light="light"/>
 
-  <RetireLightButton v-if="light" :id="light.id" @onRetired="lightRetired"/>
+  <RetireLightButton v-if="light" :id="light.id" @on-retired="lightRetired"/>
 </template>

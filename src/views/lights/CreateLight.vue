@@ -17,6 +17,6 @@
 <template>
   <h2>Add light</h2>
 
-  <LightForm @onSubmitted="create" />
+  <LightForm @on-submitted="create" />
 </template>
 

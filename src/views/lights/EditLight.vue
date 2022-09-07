@@ -21,5 +21,5 @@
 <template>
   <h1>Edit light</h1>
 
-  <LightForm v-if="light" :light="light" @onSubmitted="update" />
+  <LightForm v-if="light" :light="light" @on-submitted="update" />
 </template>
