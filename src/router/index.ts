@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { guardLight } from './Guards'
 import NotFound from '../views/NotFound.vue'
-import Audits from '../views/Audits.vue'
-import Audit from '../views/Audit.vue'
+import ListAudits from '../views/audits/ListAudits.vue'
+import ViewAudit from '../views/audits/ViewAudit.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,12 +10,12 @@ const router = createRouter({
     {
       path: '/',
       name: 'audits',
-      component: Audits
+      component: ListAudits
     },
     {
       path: '/audits/:id([0-9]*)',
       name: 'audit',
-      component: Audit
+      component: ViewAudit
     },
     {
       path: '/lights',

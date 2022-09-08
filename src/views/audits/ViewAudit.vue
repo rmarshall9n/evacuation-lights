@@ -3,7 +3,7 @@
   import { useAuditsStore } from '@/store/audits';
   import AuditChecklist from '@/components/AuditChecklist.vue';
   import CompleteAuditButton from '@/components/CompleteAuditButton.vue';
-  import UiDataGrid from '../components/ui/UiDataGrid.vue';
+  import UiDataGrid from '@/components/ui/UiDataGrid.vue';
   import { formatDate } from '@/helpers';
 
   const store = useAuditsStore()

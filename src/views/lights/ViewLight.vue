@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { useRoute, useRouter } from 'vue-router'
   import { useLightsStore } from '@/store/lights';
-import UiDataGrid from '../../components/ui/UiDataGrid.vue';
+  import UiDataGrid from '@/components/ui/UiDataGrid.vue';
 
   const route = useRoute()
   const router = useRouter()
@@ -9,7 +9,7 @@ import UiDataGrid from '../../components/ui/UiDataGrid.vue';
 
   const light = store.get(Number(route.params.id))
 
-  function lightRetired()
+  function lightRetired(): void
   {
     if (light) {
       store.retire(light.id)

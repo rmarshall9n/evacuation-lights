@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import ErrorWrapper from './components/ErrorWrapper.vue';
+import ErrorWrapper from '@/components/ErrorWrapper.vue';
 
 const links: { text: string, url: string }[] = [
   { text: 'Audits', url: '/' },
@@ -9,8 +9,8 @@ const links: { text: string, url: string }[] = [
 </script>
 
 <template>
-  <header>
-    <nav class="mb-8 py-2 bg-teal-600 shadow-2xl">
+  <header class="mb-8">
+    <nav class="py-2 bg-teal-600 shadow-2xl">
       <div class="container mx-auto flex justify-between">
         <ul class="flex justify-center space-x-3">
           <RouterLink v-for="link of links" :key="link.url" :to="link.url"
