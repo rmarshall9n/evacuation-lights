@@ -21,7 +21,7 @@ import UiDataGrid from '../../components/ui/UiDataGrid.vue';
 <template>
   <h1 class="text-6xl font-thin mb-8">View Light</h1>
 
-  <UiPanel v-if="light">
+  <UiPanel v-if="light" class="max-w-3xl">
     <UiDataGrid :data="[
       { label: 'Name', value: light.name},
       { label: 'Description', value: light.description !== null ? 'Yes' : 'No'},

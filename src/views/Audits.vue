@@ -31,7 +31,7 @@ import { formatDate } from '@/helpers';
 
   <UiButton @click="startAudit">Start Audit</UiButton>
 
-  <UiPanel class="mt-6">
+  <UiPanel class="mt-6 max-w-3xl">
     <UiTable
       :headings="['Date', 'Completed', '']"
       :data="audits.map(audit => [

@@ -22,7 +22,7 @@
 <template>
   <h1 class="text-6xl font-thin mb-8">Audit</h1>
 
-  <UiPanel v-if="audit">
+  <UiPanel v-if="audit" class="max-w-3xl">
     <UiDataGrid :data="[
       { label: 'Created at', value: formatDate(audit.created_at)},
       { label: 'Completed', value: audit.completed_at !== null ? 'Yes' : 'No'},

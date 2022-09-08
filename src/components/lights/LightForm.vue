@@ -40,7 +40,7 @@ async function submit() {
 <template>
 
   <form @submit.prevent="submit" data-test="form">
-    <UiPanel>
+    <UiPanel class="max-w-3xl">
       <UiInput label="Name" value="5" v-model="form.name" :errors="v$.name.$errors" data-test="input-name" class="mb-5" />
 
       <UiInput label="Description" value="5" v-model="form.description" :errors="v$.description.$errors" data-test="input-description" />

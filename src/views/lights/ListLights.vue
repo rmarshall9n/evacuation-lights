@@ -7,7 +7,7 @@
 
   <UiButton to="/lights/create">Create Light</UiButton>
 
-  <UiPanel class="mt-6">
+  <UiPanel class="mt-6 max-w-3xl">
     <LightsList />
   </UiPanel>
 </template>
