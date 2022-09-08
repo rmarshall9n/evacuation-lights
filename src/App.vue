@@ -1,19 +1,30 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import ErrorWrapper from './components/ErrorWrapper.vue';
+
+const links: { text: string, url: string }[] = [
+  { text: 'Dashboard', url: '/' },
+  { text: 'Lights', url: '/lights' }
+]
 </script>
 
 <template>
   <header>
-      <h1>Evacuation Lights</h1>
-
-      <nav>
-        <RouterLink to="/">Dashboard</RouterLink> |
-        <RouterLink to="/lights">Lights</RouterLink>
-      </nav>
+    <nav class="mb-8 px-10 py-2 flex justify-between bg-orange-600 shadow-2xl">
+      <ul class="flex space-x-3">
+        <RouterLink v-for="link of links" :key="link.url" :to="link.url"
+          class="px-3 py-2 rounded text-zinc-100 hover:bg-zinc-200 hover:text-zinc-800 hover:shadow-md"
+        >
+          {{ link.text }}
+        </RouterLink>
+      </ul>
+      <span class="py-2 text-zinc-100 font-semibold">Evacuation Lights</span>
+    </nav>
   </header>
 
-  <ErrorWrapper>
-    <RouterView />
-  </ErrorWrapper>
+  <div class="px-10">
+    <ErrorWrapper>
+      <RouterView />
+    </ErrorWrapper>
+  </div>
 </template>

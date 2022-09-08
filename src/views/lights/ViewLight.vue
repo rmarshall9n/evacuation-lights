@@ -16,7 +16,7 @@
   }
 </script>
 <template>
-  <h1>View light</h1>
+  <h1 class="text-6xl font-thin mb-8">View Light</h1>
 
   <LightDetails v-if="light" :light="light"/>
 

@@ -18,15 +18,18 @@
 </script>
 
 <template>
-  <h2>Dashboard</h2>
-
   <p>Days since last completed audit: {{ daysSinceLastAudit }}</p>
 
   <p v-if="daysSinceLastAudit > 30">You are due an audit</p>
 
-  <button @click="startAudit">Start audit</button>
+  <button @click="startAudit"
+    class="px-3 py-2 rounded bg-zinc-200 text-zinc-800 shadow-md hover:bg-zinc-300 hover:text-zinc-700"
+  >
+    Start Audit
+  </button>
 
-  <h3>Past audits</h3>
+  <h2 class="text-4xl font-thin my-8">Past Audits</h2>
+
   <table>
     <thead>
       <tr>

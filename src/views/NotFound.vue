@@ -2,5 +2,5 @@
 
 </script>
 <template>
-  <h1>Not Found</h1>
+  <h1 class="text-6xl font-thin mb-8">Not Found</h1>
 </template>

@@ -15,7 +15,7 @@
 </script>
 
 <template>
-  <h2>Add light</h2>
+  <h1 class="text-6xl font-thin mb-8">Create Light</h1>
 
   <LightForm @on-submitted="create" />
 </template>

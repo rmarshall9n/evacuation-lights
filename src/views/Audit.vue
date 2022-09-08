@@ -18,7 +18,7 @@
 </script>
 
 <template>
-  <h2>Audit</h2>
+  <h1 class="text-6xl font-thin mb-8">Audit</h1>
 
   <AuditDetails v-if="audit" :audit="audit" />
 

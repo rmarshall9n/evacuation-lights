@@ -19,7 +19,7 @@
   }
 </script>
 <template>
-  <h1>Edit light</h1>
+  <h1 class="text-6xl font-thin mb-8">Edit Light</h1>
 
   <LightForm v-if="light" :light="light" @on-submitted="update" />
 </template>
