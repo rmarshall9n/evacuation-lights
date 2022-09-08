@@ -25,12 +25,12 @@
     classes.push('px-3')
     classes.push('py-2')
   }
-
 </script>
 <template>
   <RouterLink v-if="to" :to="to" :class="classes">
     <slot></slot>
   </RouterLink>
+
   <button v-else :class="classes">
     <slot></slot>
   </button>

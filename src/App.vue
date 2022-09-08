@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import ErrorWrapper from './components/ErrorWrapper.vue';
 
 const links: { text: string, url: string }[] = [
-  { text: 'Dashboard', url: '/' },
+  { text: 'Audits', url: '/' },
   { text: 'Lights', url: '/lights' }
 ]
 </script>

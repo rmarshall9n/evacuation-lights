@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { useRoute, useRouter } from 'vue-router'
   import { useLightsStore } from '@/store/lights';
-  import LightDetails from '@/components/lights/LightDetails.vue'
+import UiDataGrid from '../../components/ui/UiDataGrid.vue';
 
   const route = useRoute()
   const router = useRouter()
@@ -21,11 +21,14 @@
 <template>
   <h1 class="text-6xl font-thin mb-8">View Light</h1>
 
-  <UiPanel>
-    <LightDetails v-if="light" :light="light" />
+  <UiPanel v-if="light">
+    <UiDataGrid :data="[
+      { label: 'Name', value: light.name},
+      { label: 'Description', value: light.description !== null ? 'Yes' : 'No'},
+    ]" />
 
     <template v-slot:footer>
-      <UiButton v-if="light" :id="light.id" @click="lightRetired">Retire Light</UiButton>
+      <UiButton :id="light.id" @click="lightRetired">Retire Light</UiButton>
     </template>
   </UiPanel>
 </template>

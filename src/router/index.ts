@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { guardLight } from './Guards'
 import NotFound from '../views/NotFound.vue'
-import Dashboard from '../views/Dashboard.vue'
+import Audits from '../views/Audits.vue'
 import Audit from '../views/Audit.vue'
 
 const router = createRouter({
@@ -9,8 +9,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'dashboard',
-      component: Dashboard
+      name: 'audits',
+      component: Audits
     },
     {
       path: '/audits/:id([0-9]*)',

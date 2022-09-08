@@ -22,5 +22,5 @@
 </script>
 
 <template>
-  <button @click="complete" data-test="button" :disabled="!store.canCompleteAudit(props.id)">Complete</button>
+  <UiButton @click="complete" data-test="button" :disabled="!store.canCompleteAudit(props.id)">Complete</UiButton>
 </template>
