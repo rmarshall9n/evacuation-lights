@@ -4,6 +4,7 @@
   import AuditChecklist from '@/components/AuditChecklist.vue';
   import CompleteAuditButton from '@/components/CompleteAuditButton.vue';
   import UiDataGrid from '../components/ui/UiDataGrid.vue';
+  import { formatDate } from '@/helpers';
 
   const store = useAuditsStore()
   const route = useRoute()
@@ -23,7 +24,7 @@
 
   <UiPanel v-if="audit">
     <UiDataGrid :data="[
-      { label: 'Created at', value: audit.created_at},
+      { label: 'Created at', value: formatDate(audit.created_at)},
       { label: 'Completed', value: audit.completed_at !== null ? 'Yes' : 'No'},
     ]" />
 

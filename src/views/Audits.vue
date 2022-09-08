@@ -3,6 +3,7 @@
   import { useAuditsStore } from '@/store/audits';
   import UiAlert from '@/components/ui/UiAlert.vue';
   import UiTable from '@/components/ui/UiTable.vue';
+import { formatDate } from '@/helpers';
 
   const store = useAuditsStore()
   const router = useRouter()
@@ -34,7 +35,7 @@
     <UiTable
       :headings="['Date', 'Completed', '']"
       :data="audits.map(audit => [
-        { name: 'date', value: audit.created_at },
+        { name: 'date', value: formatDate(audit.created_at) },
         { name: 'description', value: audit.completed_at !== null ? 'Yes' : 'No' },
         { name: 'actions', value: audit.id }
       ])"
