@@ -14,8 +14,9 @@ describe('LightDetails.vue', () => {
         })
       }
     })
-
-    expect(wrapper.text()).contains('Name: hallway light 1');
-    expect(wrapper.text()).contains('Description: next to the front door');
+    expect(wrapper.text()).contains('Name');
+    expect(wrapper.text()).contains('hallway light 1');
+    expect(wrapper.text()).contains('Description');
+    expect(wrapper.text()).contains('next to the front door');
   })
 })

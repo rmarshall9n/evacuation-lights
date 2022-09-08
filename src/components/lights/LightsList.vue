@@ -1,8 +1,6 @@
 <script setup lang="ts">
   import { useLightsStore } from '@/store/lights';
-  import DataTable from '@/components/DataTable.vue'
-  import ViewLightButton from '@/components/lights/ViewLightButton.vue'
-  import EditLightButton from '@/components/lights/EditLightButton.vue'
+  import UiTable from '@/components/ui/UiTable.vue'
 
   const store = useLightsStore()
 
@@ -12,7 +10,7 @@
 </script>
 
 <template>
-  <DataTable
+  <UiTable
     :headings="['Name', 'Description', '']"
     :data="lights.map(light => [
       { name: 'name', value: light.name },
@@ -21,8 +19,10 @@
     ])"
   >
     <template v-slot:actions="{value: id}">
-      <ViewLightButton :id="id" class="mr-2 px-2 py-1 rounded bg-zinc-200 text-zinc-800 shadow-md hover:bg-zinc-300 hover:text-zinc-700" />
-      <EditLightButton :id="id" class="px-2 py-1 rounded bg-zinc-200 text-zinc-800 shadow-md hover:bg-zinc-300 hover:text-zinc-700" />
+      <div class="flex space-x-1">
+        <UiButton :to="'/lights/' + id" sm>View</UiButton>
+        <UiButton :to="'/lights/' + id + '/edit'" sm>Edit</UiButton>
+      </div>
     </template>
-  </DataTable>
+  </UiTable>
 </template>

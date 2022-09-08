@@ -1,54 +1,53 @@
 <script setup lang="ts">
-  import type { Light, LightPayload } from '@/types'
-  import { reactive } from 'vue';
-  import { useVuelidate } from '@vuelidate/core'
-  import { required } from '@vuelidate/validators'
-  import ValidationErrors from '@/components/ValidationErrors.vue'
+import type { Light, LightPayload } from '@/types'
+import { reactive } from 'vue';
+import { useVuelidate } from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
+import UiInput from '@/components/ui/UiInput.vue'
 
-  const props = defineProps<{
-    light?: Light
-  }>()
+const props = defineProps<{
+  light?: Light
+}>()
 
-  const form: LightPayload = reactive({
-    name: props.light?.name ?? '',
-    description: props.light?.description ?? '',
-  })
+const form: LightPayload = reactive({
+  name: props.light?.name ?? '',
+  description: props.light?.description ?? '',
+})
 
-  const rules = {
-    name: { required },
-    description: { required }
+const rules = {
+  name: { required },
+  description: { required }
+}
+
+const v$ = useVuelidate(rules, form)
+
+const emit = defineEmits(['onSubmitted'])
+
+async function submit() {
+  const isFormCorrect = await v$.value.$validate()
+
+  if (!isFormCorrect) {
+    return
   }
 
-  const v$ = useVuelidate(rules, form)
+  emit('onSubmitted', { ...form })
 
-  const emit = defineEmits(['onSubmitted'])
-
-  async function submit()
-  {
-    const isFormCorrect = await v$.value.$validate()
-
-    if (!isFormCorrect) {
-      return
-    }
-    emit('onSubmitted', {...form})
-
-    form.name = ''
-    form.description = ''
-  }
+  form.name = ''
+  form.description = ''
+}
 </script>
 
 <template>
-  <ValidationErrors :errors="v$.$errors" />
 
   <form @submit.prevent="submit" data-test="form">
-    <div>
-      <label>Name: </label><input type="text" name="name" v-model="form.name" data-test="input-name">
-    </div>
+    <UiPanel>
+      <UiInput label="Name" value="5" v-model="form.name" :errors="v$.name.$errors" data-test="input-name" class="mb-5" />
 
-    <div>
-      <label>Description: </label><input type="text" name="description" v-model="form.description" data-test="input-description">
-    </div>
+      <UiInput label="Description" value="5" v-model="form.description" :errors="v$.description.$errors" data-test="input-description" />
 
-    <button>{{ light ? 'Edit' : 'Create' }}</button>
+      <template v-slot:footer>
+        <UiButton>Save</UiButton>
+      </template>
+    </UiPanel>
   </form>
 </template>
