@@ -6,7 +6,7 @@
   const props = defineProps<{
     label: string,
     modelValue: string,
-    errors: ErrorObject[]
+    errors?: ErrorObject[]
   }>()
 
   const emit = defineEmits(['update:modelValue'])

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { guardLight } from './Guards'
+import SignIn from '../views/SignIn.vue'
 import NotFound from '../views/NotFound.vue'
 import ListAudits from '../views/audits/ListAudits.vue'
 import ViewAudit from '../views/audits/ViewAudit.vue'
@@ -7,6 +8,11 @@ import ViewAudit from '../views/audits/ViewAudit.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/sign-in',
+      name: 'sign-in',
+      component: SignIn
+    },
     {
       path: '/',
       name: 'audits',
