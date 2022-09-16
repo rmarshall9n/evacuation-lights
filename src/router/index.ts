@@ -63,6 +63,7 @@ const router = createRouter({
 router.beforeEach(async (to, from) => {  
   if (to.meta.guest !== true) {
     authGuard(to)
+    return false
   }
 })
 

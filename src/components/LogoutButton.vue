@@ -5,7 +5,9 @@ const { logout } = useAuth0();
 
 function onLogout()
 {
-    logout();
+    logout({
+        returnTo: 'http://localhost:8080/login'
+    });
 }
 </script>
 <template>
