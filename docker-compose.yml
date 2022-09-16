@@ -1,12 +1,12 @@
 version: '3.7'
 
 services:
-  app:
+  frontend:
     image: node:18.8
     command: sh -c "npm run dev"
     user: 'node'
     working_dir: /usr/src/app
     volumes:
-      - ./:/usr/src/app
+      - ./frontend:/usr/src/app
     ports:
       - 8080:5173
