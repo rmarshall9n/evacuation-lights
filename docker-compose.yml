@@ -10,3 +10,21 @@ services:
       - ./frontend:/usr/src/app
     ports:
       - 8080:5173
+    networks:
+      - frontend
+
+  backend:
+    image: node:18.8
+    command: npm start
+    user: 'node'
+    working_dir: /usr/src/app
+    volumes:
+      - ./backend:/usr/src/app
+    ports:
+      - 8081:3000
+    networks:
+      - backend
+
+networks:
+  frontend:
+  backend:
