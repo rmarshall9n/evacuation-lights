@@ -1,6 +1,7 @@
 import type { Light, LightInput } from './Types'
 import config from '../../../knexfile'
 import createKnex from 'knex'
+import { dateNow } from '../../Utils'
 
 const knex = createKnex(config['development'])
 
@@ -26,4 +27,12 @@ export async function updateLight(id: number, data: LightInput) {
     await knex('lights')
         .where({ id })
         .update(data)
+}
+
+export async function retireLight(id: number) {
+    await knex('lights')
+        .where({ id })
+        .update({
+            retired_at: dateNow(),
+        })
 }

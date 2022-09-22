@@ -6,6 +6,7 @@ export async function up(knex: Knex): Promise<void> {
             table.increments('id');
             table.string('name', 255).notNullable();
             table.text('description').notNullable();
+            table.datetime('retired_at').nullable();
         })
 }
 
