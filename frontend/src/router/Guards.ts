@@ -1,10 +1,10 @@
 import type { RouteLocation } from 'vue-router';
 import { useLightsStore } from '@/store/lights';
 
-export function guardLight(to: RouteLocation) {
+export async function guardLight(to: RouteLocation) {
   const store = useLightsStore()
 
-  store.fetchOne(Number(to.params.id))
+  await store.fetchOne(Number(to.params.id))
 
   const light = store.get(Number(to.params.id))
 
@@ -16,4 +16,10 @@ export function guardLight(to: RouteLocation) {
       hash: to.hash,
     }
   }
+}
+
+export async function guardLights(to: RouteLocation) {
+  const store = useLightsStore()
+
+  await store.fetch()
 }

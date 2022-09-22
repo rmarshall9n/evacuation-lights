@@ -1,17 +1,17 @@
 <script setup lang="ts">
-  import type { LightPayload } from '@/types';
-  import router from '@/router';
-  import { useLightsStore } from '@/store/lights';
-  import LightForm from '@/components/lights/LightForm.vue'
+import type { LightPayload } from '@/types';
+import { useRouter } from 'vue-router';
+import { useLightsStore } from '@/store/lights';
+import LightForm from '@/components/lights/LightForm.vue'
 
-  const store = useLightsStore()
+const store = useLightsStore()
+const router = useRouter()
 
-  function create(payload: LightPayload)
-  {
-    store.create(payload)
+async function create(payload: LightPayload) {
+  await store.create(payload)
 
-    router.push('/lights')
-  }
+  router.push('/lights')
+}
 </script>
 
 <template>

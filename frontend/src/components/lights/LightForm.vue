@@ -14,12 +14,10 @@ const form: LightPayload = reactive({
   description: props.light?.description ?? '',
 })
 
-const rules = {
+const v$ = useVuelidate({
   name: { required },
   description: { required }
-}
-
-const v$ = useVuelidate(rules, form)
+}, form)
 
 const emit = defineEmits(['onSubmitted'])
 
@@ -31,19 +29,17 @@ async function submit() {
   }
 
   emit('onSubmitted', { ...form })
-
-  form.name = ''
-  form.description = ''
 }
 </script>
 
 <template>
-
   <form @submit.prevent="submit" data-test="form">
     <UiPanel class="max-w-3xl">
-      <UiInput label="Name" value="5" v-model="form.name" :errors="v$.name.$errors" data-test="input-name" class="mb-5" />
+      <UiInput label="Name" value="5" v-model="form.name" :errors="v$.name.$errors" data-test="input-name"
+        class="mb-5" />
 
-      <UiInput label="Description" value="5" v-model="form.description" :errors="v$.description.$errors" data-test="input-description" />
+      <UiInput label="Description" value="5" v-model="form.description" :errors="v$.description.$errors"
+        data-test="input-description" />
 
       <template v-slot:footer>
         <UiButton>Save</UiButton>

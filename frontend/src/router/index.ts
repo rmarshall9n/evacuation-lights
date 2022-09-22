@@ -1,7 +1,7 @@
 import type { App } from 'vue';
 import { createRouter as createVueRouter, createWebHistory, type Router } from 'vue-router'
-import { Auth0Plugin, authGuard  } from '@auth0/auth0-vue';
-import { guardLight } from './Guards'
+import { Auth0Plugin, authGuard } from '@auth0/auth0-vue';
+import { guardLight, guardLights } from './Guards'
 import Login from '@/views/Login.vue'
 import NotFound from '@/views/NotFound.vue'
 import NotAuthorized from '@/views/NotAuthorized.vue'
@@ -41,6 +41,7 @@ export function createRouter(app: App, auth: Auth0Plugin): Router {
         path: '/lights',
         name: 'lights',
         component: () => import('@/views/lights/ListLights.vue'),
+        beforeEnter: [guardLights],
         meta: {
           roles: ['admin']
         }
@@ -90,7 +91,7 @@ export function createRouter(app: App, auth: Auth0Plugin): Router {
     ]
   })
 
-  router.beforeEach(async (to) => {  
+  router.beforeEach(async (to) => {
     // If the route allows requiresAuths, allow everyone through
     if (to.meta.requiresAuth === true) {
       return

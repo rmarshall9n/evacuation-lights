@@ -11,24 +11,25 @@ export type LightPayload = {
 };
 
 export interface LightsApi {
-  get(id: number): Light|null,
-  all(): Light[],
-  store(payload: LightPayload): Light,
-  update(id: number, payload: Partial<Light>): Light|null,
+  all(): Promise<Light[]>;
+  get(id: number): Promise<Light>;
+  store(payload: LightPayload): Promise<Light>;
+  update(id: number, payload: LightPayload): Promise<Light>;
+  retire(id: number): Promise<Light>;
 }
 
 export type Audit = {
   id: number;
   created_at: string;
-  completed_at: string|null;
+  completed_at: string | null;
   records: LightRecord[];
 };
 
 export interface AuditsApi {
-  get(id: number): Audit|null,
+  get(id: number): Audit | null,
   all(): Audit[],
   store(): Audit,
-  update(id: number, payload: Partial<Audit>): Audit|null,
+  update(id: number, payload: Partial<Audit>): Audit | null,
 }
 
 export type LightRecord = {
