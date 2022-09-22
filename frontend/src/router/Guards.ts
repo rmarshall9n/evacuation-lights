@@ -1,19 +1,28 @@
 import type { RouteLocation } from 'vue-router';
 import { useLightsStore } from '@/store/lights';
+import { AxiosError } from 'axios';
+
+function notFound(to: RouteLocation) {
+  return {
+    name: 'not-found',
+    params: { pathMatch: to.path.substring(1).split('/') },
+    query: to.query,
+    hash: to.hash,
+  }
+}
 
 export async function guardLight(to: RouteLocation) {
   const store = useLightsStore()
 
-  await store.fetchOne(Number(to.params.id))
+  try {
+    await store.fetchOne(Number(to.params.id))
+  } catch (error) {
+    if (!(error instanceof AxiosError)) {
+      throw error
+    }
 
-  const light = store.get(Number(to.params.id))
-
-  if (light === null) {
-    return {
-      name: 'not-found',
-      params: { pathMatch: to.path.substring(1).split('/') },
-      query: to.query,
-      hash: to.hash,
+    if (error.response?.status === 404) {
+      return notFound(to)
     }
   }
 }
