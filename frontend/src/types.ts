@@ -2,7 +2,7 @@ export type Light = {
   id: number;
   name: string;
   description: string;
-  retired: boolean;
+  retired_at: string | null;
 };
 
 export type LightPayload = {

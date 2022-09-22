@@ -9,7 +9,7 @@ export const useLightsStore = defineStore('lights', () => {
   const lights: Ref<Light[]> = ref([])
 
   const all = computed(() => lights.value)
-  const active = computed(() => lights.value.filter(light => light.retired === false))
+  const active = computed(() => lights.value.filter(light => light.retired_at === null))
 
   function get(id: number): Light | null {
     return lights.value.find((light) => light.id === id) || null
