@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express"
 import { getLights, getLight, storeLight, updateLight, retireLight } from "./Repository"
+import { validateCreateLight } from "./Validators"
 
 const router = Router()
 
@@ -20,6 +21,12 @@ router.get('/:id(\\d+)', async (req: Request, res: Response) => {
 })
 
 router.post('/', async (req: Request, res: Response) => {
+    const errors = validateCreateLight(req.body)
+    if (errors.length > 0) {
+        res.status(422).json({ errors })
+        return
+    }
+
     const id = await storeLight({
         name: req.body.name,
         description: req.body.description,
@@ -29,6 +36,7 @@ router.post('/', async (req: Request, res: Response) => {
 
     if (light === undefined) {
         res.sendStatus(404)
+        return
     }
 
     res.json(light)

@@ -11,9 +11,9 @@ const links: { text: string, url: string }[] = [
   { text: 'Audits', url: '/' }
 ]
 
-if (user.value.role === 'admin') {
-  links.push({ text: 'Lights', url: '/lights' })
-}
+// if (user.value.role === 'admin') {
+links.push({ text: 'Lights', url: '/lights' })
+// }
 </script>
 
 <template>
